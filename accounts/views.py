@@ -75,10 +75,10 @@ class LoginView(APIView):
         try:
             user = User.objects.get(username=username)
         except:
-            return Response({"message": "아이디가 틀렸습니다."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": "아이디 또는 비밀번호가 잘못 되었습니다. 아이디와 비밀번호를 정확히 입력해 주세요."}, status=status.HTTP_400_BAD_REQUEST)
 
         if not user.is_active:
-            return Response({"message": "회원 정보가 없습니다."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": "아이디 또는 비밀번호가 잘못 되었습니다. 아이디와 비밀번호를 정확히 입력해 주세요."}, status=status.HTTP_400_BAD_REQUEST)
 
         if bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
             serializer = UserSerializer(user)
@@ -88,7 +88,7 @@ class LoginView(APIView):
             res_data['access_token'] = str(refresh.access_token)
             return Response(res_data)
         else:
-            return Response({"message": "비밀번호가 틀렸습니다."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": "아이디 또는 비밀번호가 잘못 되었습니다. 아이디와 비밀번호를 정확히 입력해 주세요."}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LogoutView(APIView):
