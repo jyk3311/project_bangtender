@@ -27,6 +27,8 @@ services:
     env_file:
       - .env # 환경 변수 로드
     volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - .:/bangtender
       - ./static:/bangtender/static
       - ./logs:/bangtender/logs
