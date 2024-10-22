@@ -9,7 +9,8 @@ from subcontents.views import RecordPagination
 from rest_framework.generics import ListCreateAPIView
 from liquor.validators import validator_liquor
 from django.db.models import Q
-
+from subcontents.functions import get_info
+from django.core.cache import cache
 
 class LiquorListView(ListCreateAPIView):
     """주류 게시글 조회 및 등록 APIView
@@ -40,8 +41,15 @@ class LiquorListView(ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         response = super().list(request, *args, **kwargs)
 
+        if request.get_full_path() == cache.get('liquor_path') or not cache.get('liquor_path'):
+            cache.delete("cocktail_path")
+            cache.delete('random_info')
+            cache.set("liquor_path","/api/v1/liquor/")
+        response.data['info'] = get_info()
+
         if request.user:
             response.data['is_superuser'] = request.user.is_superuser
+        
         return Response(response.data)
 
     def post(self, request):
