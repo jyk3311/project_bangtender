@@ -12,8 +12,9 @@ load_dotenv()
 
 openai_api_key = os.getenv('OPEN_API_KEY')
 
+
 def get_info():
-    
+
     info_cache_key = 'random_info'
     random_info = cache.get(info_cache_key)
     if not random_info:
@@ -23,6 +24,7 @@ def get_info():
         except (IndexError):
             random_info = {'아직 알려드릴 정보가 없네요'}
     return random_info
+
 
 def btd_bot(question, message_history=[], model="gpt-3.5-turbo-1106", user_liquor=[], like_liquor=[], hate_liquor=[]):
     """방텐더봇 function
@@ -41,7 +43,7 @@ def btd_bot(question, message_history=[], model="gpt-3.5-turbo-1106", user_liquo
     client = OpenAI(api_key=openai_api_key)
 
     # 시스템 프롬프트
-    system_instruction = f"""너는 최고의 바텐더야. 사용자의 질문에 대답해줘.
+    system_instruction = f"""너는 최고의 바텐더고 이름은 방텐더야. 사용자의 질문에 대답해줘.
         대답에 관한 주류는 """
     for i in liquor_classification:
         system_instruction += f"""{i} 종류는 {query_liquor.filter(classification = i).values_list('name', flat=True)}여기에서"""

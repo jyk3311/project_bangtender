@@ -111,6 +111,12 @@ class LiquorDetailView(APIView):
         res_data = serializer.data
         if request.user:
             res_data['is_superuser'] = request.user.is_superuser
+
+        user = request.user
+        if user in liquor.bookmark.all():
+            res_data['is_bookmarked'] = True
+        else:
+            res_data['is_bookmarked'] = False
         return Response(res_data)
 
     def put(self, request, pk):
