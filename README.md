@@ -4,6 +4,9 @@
 
 ---
 
+## 프론트엔드 Repository
+https://github.com/rabongee/bangtender_frontend
+
 ## 📚 목차
 
 - [프로젝트 개요](#-프로젝트-개요)
@@ -117,8 +120,6 @@ python manage.py runserver
 ---
 
 ## 📋 API 사용법
-
-자세한 API 명세서는 [Postman API Documentation](__추가예정)에서 확인할 수 있습니다.
 
 ### Accounts
 
